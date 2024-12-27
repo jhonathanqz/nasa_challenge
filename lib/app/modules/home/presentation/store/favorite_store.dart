@@ -80,4 +80,11 @@ abstract class FavoriteStoreBase with Store {
     }
     return true;
   }
+
+  @action
+  void wipeStore() {
+    favorites.clear();
+    wipeError();
+    isLoading = false;
+  }
 }

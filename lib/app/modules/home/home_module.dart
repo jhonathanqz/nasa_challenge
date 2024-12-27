@@ -28,6 +28,7 @@ class HomeModule extends Module {
         removeApodFavoriteUsecase: i(),
         searchApodUsecase: i(),
         getApodsFavoriteUsecase: i(),
+        dbStore: i(),
       ),
     );
     i.addLazySingleton(

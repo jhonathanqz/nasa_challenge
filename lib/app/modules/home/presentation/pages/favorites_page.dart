@@ -5,6 +5,7 @@ import 'package:nasa_challenge/app/modules/home/presentation/store/favorite_stor
 import 'package:nasa_challenge/app/modules/home/presentation/widgets/apod_card.dart';
 import 'package:nasa_challenge/app/shared/style/style_theme.dart';
 import 'package:nasa_challenge/app/shared/widgets/appbar/app_bar_default.dart';
+import 'package:nasa_challenge/app/shared/widgets/empty/list_empty.dart';
 import 'package:nasa_challenge/app/shared/widgets/scaffold/scaffold_app.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -34,6 +35,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return ScaffoldApp(
@@ -45,13 +52,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
         child: Container(
           padding: Style.edgeInsets.sdAll,
           child: store.favorites.isEmpty
-              ? Center(
-                  child: Text('Nenhum favorito encontrado'),
-                )
+              ? ListEmpty(message: 'Nenhum favorito encontrado.')
               : Column(
                   children: [
                     Expanded(
                       child: ListView.builder(
+                        reverse: true,
                         itemCount: store.favorites.length,
                         itemBuilder: (context, index) {
                           final favorite = store.favorites[index];

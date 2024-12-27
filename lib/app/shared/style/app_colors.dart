@@ -15,7 +15,7 @@ class AppColors {
   final Color mediumDarkColor = const Color(0xFF154A5F);
   final Color splashColor = const Color(0xff404040);
   final Color darkColor = const Color(0xff732257); //0xFF435359
-  final Color loadingColor = const Color(0xff732257);
+  final Color loadingColor = const Color.fromARGB(255, 255, 255, 255);
   final Color primaryOrange = const Color(0xff732257);
 
   final Color primaryTextColor = const Color(0xFF303030);

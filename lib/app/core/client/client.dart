@@ -4,7 +4,7 @@ import '../../shared/helpers/api_helper.dart';
 
 import '../../shared/utils/strings.dart';
 import '../domain/exceptions/api_exception.dart';
-import 'i_client.dart';
+import 'contract/i_client.dart';
 
 class Client implements IClient {
   final Dio _client;

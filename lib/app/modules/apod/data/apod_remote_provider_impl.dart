@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:nasa_challenge/app/core/client/i_client.dart';
+import 'package:nasa_challenge/app/core/client/constants/app_endpoints.dart';
+import 'package:nasa_challenge/app/core/client/contract/i_client.dart';
 import 'package:nasa_challenge/app/core/constants/app_token.dart';
 import 'package:nasa_challenge/app/modules/apod/infra/contract/apod_remote_provider.dart';
 
@@ -14,7 +15,7 @@ class ApodRemoteProviderImpl implements ApodRemoteProvider {
   Future<dynamic> getApodDay({bool isHightQuality = false}) async {
     try {
       final response = await _client.get(
-        '/planetary/apod',
+        AppEndpoints.getApods,
         queryParameters: _baseQuery,
       );
 
@@ -37,7 +38,7 @@ class ApodRemoteProviderImpl implements ApodRemoteProvider {
       }
 
       final response = await _client.get(
-        '/planetary/apod',
+        AppEndpoints.getApods,
         queryParameters: query,
       );
 

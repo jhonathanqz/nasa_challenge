@@ -12,26 +12,6 @@ import '../domain/interceptor/retry_interceptor.dart';
 class ClientHTTP {
   ClientHTTP() {
     setupClient();
-    setupClientJwt();
-  }
-
-  static Dio setupClientJwt() {
-    getEnvironmentSettings();
-    final client = ClientFactory.baseClientJwt!;
-    client.options.baseUrl = AppToken.urlBase;
-    client.options.headers = {
-      'Content-Type': 'application/json',
-    };
-    client.options.followRedirects = false;
-    client.options.connectTimeout = const Duration(seconds: 30);
-    client.options.receiveTimeout = const Duration(seconds: 90);
-
-    client.interceptors.add(RetryOn500Interceptor(client));
-    if (AppEnvironmentSetup.appSetup.isDioLogger) {
-      client.interceptors.add(dioLoggerRequestInterceptor);
-    }
-
-    return client;
   }
 
   static Dio setupClient({
@@ -57,8 +37,6 @@ class ClientHTTP {
   }
 
   static Dio get clientBase => setupClient();
-
-  static Dio get clientJWT => setupClientJwt();
 
   static getEnvironmentSettings() {
     final String currentEnvironment = AppEnvironmentSetup.environment.name.toUpperCase();

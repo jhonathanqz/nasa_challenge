@@ -8,12 +8,4 @@ class ClientFactory {
 
     return _baseClient;
   }
-
-  static Dio? _clientJwt;
-
-  static Dio? get baseClientJwt {
-    _clientJwt ??= Dio();
-
-    return _clientJwt;
-  }
 }

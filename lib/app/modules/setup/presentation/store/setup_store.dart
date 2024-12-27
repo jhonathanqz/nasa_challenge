@@ -31,6 +31,7 @@ abstract class SetupStoreBase with Store {
   Future<bool> saveUser({
     required String userName,
   }) async {
+    wipeError();
     isLoading = true;
     try {
       await _dbStore.put('user_key', [userName]);
