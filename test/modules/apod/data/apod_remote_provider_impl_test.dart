@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:intl/intl.dart';
-import 'package:nasa_challenge/app/core/client/i_client.dart';
+import 'package:nasa_challenge/app/core/client/contract/i_client.dart';
 import 'package:nasa_challenge/app/core/constants/app_token.dart';
 import 'package:nasa_challenge/app/modules/apod/data/apod_remote_provider_impl.dart';
 import 'mocks/apod_remote_provider_impl_test.mocks.dart';

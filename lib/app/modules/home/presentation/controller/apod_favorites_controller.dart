@@ -30,4 +30,6 @@ class ApodFavoritesController {
   }
 
   void navigateToDetails(ApodEntity apod) => Modular.to.pushNamed('./details', arguments: apod);
+
+  void dispose() => _favoriteStore.wipeStore();
 }

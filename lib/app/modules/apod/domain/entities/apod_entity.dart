@@ -80,6 +80,19 @@ class ApodEntity {
     );
   }
 
+  factory ApodEntity.empty() {
+    return const ApodEntity(
+      date: '',
+      explanation: '',
+      hdurl: '',
+      mediaType: '',
+      serviceVersion: '',
+      title: '',
+      url: '',
+      isFavorite: false,
+    );
+  }
+
   String toJson() => json.encode(toMap());
 
   factory ApodEntity.fromJson(String source) => ApodEntity.fromMap(json.decode(source) as Map<String, dynamic>);

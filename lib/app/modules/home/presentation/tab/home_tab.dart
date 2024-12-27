@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:nasa_challenge/app/shared/widgets/empty/list_empty.dart';
 
 import '../../../../shared/style/style_theme.dart';
 import '../../../../shared/widgets/appbar/app_bar_default.dart';
@@ -50,40 +51,67 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               )
             : null,
-        child: Container(
-          padding: Style.edgeInsets.sdAll,
+        child: SizedBox(
+          // padding: Style.edgeInsets.sdAll,
           child: store.isLoading
               ? Container()
               : store.isError || store.apodEntity == null
-                  ? Center(
-                      child: Text(store.errorMessage ?? 'Não encontramos a imagem do dia.'),
-                    )
+                  ? ListEmpty(message: 'Não foi possível carregar a imagem do dia.')
                   : SingleChildScrollView(
                       child: Column(
                         children: [
-                          SwitchListTile(
-                            title: const Text('Qualidade HD?'),
-                            value: store.isHightQuality,
-                            onChanged: (e) {
-                              controller.setHightQuality(e);
-                              setState(() {});
-                            },
-                          ),
-                          ListTile(
-                            title: const Text('Data'),
-                            subtitle: Text(store.apodEntity!.datePtBR),
-                            trailing: IconButton(
-                              onPressed: () => controller.showDateSelect(context),
-                              icon: const Icon(Icons.calendar_today),
+                          Container(
+                            color: Style.theme.appBarColor,
+                            child: Column(
+                              children: [
+                                Style.spacing.min,
+                                Text(
+                                  'Olá, ${store.userName}',
+                                  style: Style.fieldStyle.big22(fontWeight: FontWeight.bold),
+                                ),
+                                SwitchListTile(
+                                  title: Text(
+                                    'Qualidade HD?',
+                                    style: Style.fieldStyle.medium16(),
+                                  ),
+                                  value: store.isHightQuality,
+                                  onChanged: (e) {
+                                    controller.setHightQuality(e);
+                                    setState(() {});
+                                  },
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    'Data',
+                                    style: Style.fieldStyle.medium16(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    store.apodEntity!.datePtBR,
+                                    style: Style.fieldStyle.small14(),
+                                  ),
+                                  trailing: IconButton(
+                                    onPressed: () => controller.showDateSelect(context),
+                                    icon: Icon(
+                                      Icons.calendar_today,
+                                      color: Style.theme.iconColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           Visibility(
                             visible: store.apodEntity != null,
-                            child: ApodCard(
-                              isHightQuality: store.isHightQuality,
-                              apodEntity: store.apodEntity!,
-                              onDetails: (e) => controller.navigateToDetails(e),
-                              onFavorite: (e) => controller.saveFavorite(e),
+                            child: Padding(
+                              padding: Style.edgeInsets.sdAll,
+                              child: ApodCard(
+                                isHightQuality: store.isHightQuality,
+                                apodEntity: store.apodEntity!,
+                                onDetails: (e) => controller.navigateToDetails(e),
+                                onFavorite: (e) => controller.saveFavorite(e),
+                              ),
                             ),
                           ),
                         ],

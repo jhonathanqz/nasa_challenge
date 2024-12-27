@@ -6,7 +6,7 @@ abstract class AppEnvironmentSetup {
 
   static const AppSetup appSetup = AppSetup(
     isDebugPrint: false,
-    isDioLogger: true,
+    isDioLogger: false,
     isDebugPayment: false,
   );
 }

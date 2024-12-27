@@ -32,11 +32,11 @@ class ApodCard extends StatelessWidget {
                 ListTile(
                   title: Text(
                     '${apodEntity.title}\n${apodEntity.datePtBR}',
-                    style: Style.fieldStyle.title16Bold,
+                    style: Style.fieldStyle.titleBold,
                   ),
                   subtitle: Text(
                     apodEntity.explanation,
-                    style: Style.fieldStyle.simpleDarkStyle,
+                    style: Style.fieldStyle.medium16(textColor: Style.theme.black),
                   ),
                 ),
                 Visibility(

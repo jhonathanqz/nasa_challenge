@@ -5,6 +5,7 @@ import 'package:nasa_challenge/app/modules/apod/domain/usecase/get_apods_favorit
 import 'package:nasa_challenge/app/modules/apod/domain/usecase/remove_apod_favorite_usecase.dart';
 import 'package:nasa_challenge/app/modules/apod/domain/usecase/save_apod_favorite_usecase.dart';
 import 'package:nasa_challenge/app/modules/apod/domain/usecase/search_apod_usecase.dart';
+import 'package:nasa_challenge/app/modules/localstorage/presentation/mobx/db.store.dart';
 
 import '../../../apod/domain/entities/apod_entity.dart';
 
@@ -18,6 +19,7 @@ abstract class HomeStoreBase with Store {
   final RemoveApodFavoriteUsecase _removeApodFavoriteUsecase;
   final SearchApodUsecase _searchApodUsecase;
   final GetApodsFavoriteUsecase _getApodsFavoriteUsecase;
+  final DBStore _dbStore;
 
   HomeStoreBase({
     required GetApodDayUsecase getApodDayUsecase,
@@ -25,11 +27,15 @@ abstract class HomeStoreBase with Store {
     required RemoveApodFavoriteUsecase removeApodFavoriteUsecase,
     required SearchApodUsecase searchApodUsecase,
     required GetApodsFavoriteUsecase getApodsFavoriteUsecase,
+    required DBStore dbStore,
   })  : _getApodDayUsecase = getApodDayUsecase,
         _saveApodFavoriteUsecase = saveApodFavoriteUsecase,
         _removeApodFavoriteUsecase = removeApodFavoriteUsecase,
         _searchApodUsecase = searchApodUsecase,
-        _getApodsFavoriteUsecase = getApodsFavoriteUsecase;
+        _getApodsFavoriteUsecase = getApodsFavoriteUsecase,
+        _dbStore = dbStore {
+    getUserName();
+  }
 
   @observable
   bool isLoading = false;
@@ -39,6 +45,9 @@ abstract class HomeStoreBase with Store {
 
   @observable
   String? errorMessage;
+
+  @observable
+  String? userName;
 
   @action
   void wipeError() {
@@ -137,6 +146,16 @@ abstract class HomeStoreBase with Store {
       final favorite = favoritesDatabase.data!.where((e) => e.url == result.url);
       if (favorite.isNotEmpty) {
         apodEntity = apodEntity?.copyWith(isFavorite: true);
+      }
+    }
+  }
+
+  @action
+  Future<void> getUserName() async {
+    if (userName == null) {
+      final user = await _dbStore.get('user_key');
+      if (user.isNotEmpty) {
+        userName = user.first;
       }
     }
   }
