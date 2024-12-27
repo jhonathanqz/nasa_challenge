@@ -83,4 +83,16 @@ class ApodEntity {
   String toJson() => json.encode(toMap());
 
   factory ApodEntity.fromJson(String source) => ApodEntity.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ApodEntity && other.date == date && other.explanation == explanation && other.hdurl == hdurl && other.mediaType == mediaType && other.serviceVersion == serviceVersion && other.title == title && other.url == url && other.isFavorite == isFavorite;
+  }
+
+  @override
+  int get hashCode {
+    return date.hashCode ^ explanation.hashCode ^ hdurl.hashCode ^ mediaType.hashCode ^ serviceVersion.hashCode ^ title.hashCode ^ url.hashCode ^ isFavorite.hashCode;
+  }
 }
